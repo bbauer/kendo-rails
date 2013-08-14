@@ -49,7 +49,15 @@ else
         def add_kendoui_scripts
           say_status("adding", "Kendo UI (#{Kendoui::Rails::KENDOUI_VERSION}) to javascripts pipeline", :green)
           
-          insert_into_file "app/assets/javascripts/application.js", "//= require kendo/kendo.web.min\n", :before => "//= require_tree ."
+          asset_path    = "app/assets/javascripts/application.js"
+          require_kendo = "require kendo/kendo.web.min\n"
+          require_tree  = "require_tree ."
+
+          if File.exist?("#{asset_path}.coffee")
+            insert_into_file "#{asset_path}.coffee", "#= #{require_kendo}", :before => "#= #{require_tree}"
+          else
+            insert_into_file asset_path, "//= #{require_kendo}", :before => "//= #{require_tree}"
+          end
         end
               
         def add_kendoui_styles
