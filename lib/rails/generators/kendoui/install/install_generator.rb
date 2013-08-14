@@ -54,9 +54,9 @@ else
           require_tree  = "require_tree ."
 
           if File.exist?("#{asset_path}.coffee")
-            insert_into_file "#{asset_path}.coffee", "#= #{require_kendo}", :before => "#= #{require_tree}"
+            insert_into_file "#{asset_path}.coffee", "#= #{require_kendo}"
           else
-            insert_into_file asset_path, "//= #{require_kendo}", :before => "//= #{require_tree}"
+            insert_into_file asset_path, "//= #{require_kendo}"
           end
         end
               
